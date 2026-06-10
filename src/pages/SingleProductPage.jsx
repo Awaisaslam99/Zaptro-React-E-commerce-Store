@@ -6,11 +6,14 @@ import Bradcrums from "../components/Bradcrums";
 import { IoCartOutline, IoStar } from "react-icons/io5";
 import { FiPlus, FiMinus } from "react-icons/fi";
 import { useCartData } from "../Context/CartContext";
+import { useUser } from "@clerk/react";
+import { toast } from "react-toastify";
 
 const SingleProductPage = () => {
   const [singleProduct, setsingleProduct] = useState("");
   const params = useParams();
   const { addtoCart, cartItem, setCartItem } = useCartData();
+  const { isSignedIn } = useUser();
 
   const cartProduct = cartItem.find((item) => item.id === singleProduct.id);
   
@@ -38,6 +41,10 @@ const SingleProductPage = () => {
 
   const handleQuantityChange = (newQty) => {
     if (newQty < 1) return;
+    if (!isSignedIn) {
+      toast.info("Sign in to buy items");
+      return;
+    }
     if (cartProduct) {
       const updatedCart = cartItem.map((item) =>
         item.id === singleProduct.id ? { ...item, quantity: newQty } : item
@@ -156,7 +163,13 @@ const SingleProductPage = () => {
 
                 <div className="flex-1 pt-5">
                   <button
-                    onClick={() => addtoCart(singleProduct)}
+                    onClick={() => {
+                      if (!isSignedIn) {
+                        toast.info("Sign in to buy items");
+                        return;
+                      }
+                      addtoCart(singleProduct);
+                    }}
                     disabled={singleProduct.stock <= 0}
                     className="w-full flex gap-2 items-center justify-center px-6 py-3.5 bg-red-500 hover:bg-red-600 disabled:bg-gray-200 disabled:cursor-not-allowed font-semibold text-white text-base rounded-xl transition duration-300 shadow-lg shadow-red-500/10 active:scale-[0.99] cursor-pointer"
                   >

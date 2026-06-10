@@ -24,9 +24,9 @@ const Footer = () => {
             Powering Your World with the Best in Premium Electronics and Modern Smart Gadgets.
           </p>
           <div className="space-y-1.5 text-xs text-gray-400 font-medium">
-            <p>📍 Muridke, Lahore, Pakistan</p>
+            <p>📍 Shahdra, Lahore, Pakistan</p>
             <p>✉️ support@zaptro.com</p>
-            <p>📞 +92 312-047-6372</p>
+            <p>📞 +92 312-569-9400</p>
           </div>
         </div>
 

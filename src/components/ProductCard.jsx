@@ -1,10 +1,21 @@
 import { IoCartOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { useCartData } from "../Context/CartContext";
+import { useUser } from "@clerk/react";
+import { toast } from "react-toastify";
 
 const ProductCard = ({ product }) => {
   const { addtoCart } = useCartData();
+  const { isSignedIn } = useUser();
   const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    if (!isSignedIn) {
+      toast.info("Sign in to buy items");
+      return;
+    }
+    addtoCart(product);
+  };
 
   return (
     <div className="bg-white border border-gray-100 p-3 cursor-pointer rounded-2xl hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full">
@@ -39,7 +50,7 @@ const ProductCard = ({ product }) => {
 
         {/* Action Button - Always forced to the bottom edge */}
         <button 
-          onClick={() => addtoCart(product)}  
+          onClick={handleAddToCart}  
           className="flex items-center rounded-xl justify-center text-white bg-red-500 hover:bg-red-600 active:bg-red-700 font-semibold gap-2 w-full px-3 py-2.5 text-sm cursor-pointer transition-all duration-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 active:translate-y-0 mt-auto"
         >
           <IoCartOutline className="w-4 h-4" /> Add to Cart

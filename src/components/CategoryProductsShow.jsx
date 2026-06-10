@@ -1,9 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import { useCartData } from "../Context/CartContext";
+import { useUser } from "@clerk/react";
+import { toast } from "react-toastify";
 
 const CategoryProductsShow = ({product}) => {
         const {addtoCart}=useCartData();
+        const { isSignedIn } = useUser();
         const navigate = useNavigate();
+
+        const handleAddToCart = () => {
+          if (!isSignedIn) {
+            toast.info("Sign in to buy items");
+            return;
+          }
+          addtoCart(product);
+        };
         
   return (
     <div className=" space-y-2 md:space-y-4 mt-2 rounded-md">
@@ -26,7 +37,7 @@ const CategoryProductsShow = ({product}) => {
             <span className="font-semibold">Tomorrow, 17 Apr</span>
           </p>
           <button
-            onClick={() => addtoCart(product)}
+            onClick={handleAddToCart}
             className="w-fit bg-red-500 rounded-md text-white px-2 py-1 cursor-pointer"
           >
             Add to Cart

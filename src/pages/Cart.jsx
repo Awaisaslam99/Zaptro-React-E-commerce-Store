@@ -7,7 +7,7 @@ import { useUser } from "@clerk/react";
 import { useNavigate } from "react-router-dom";
 import emptyCart from '../assets/emptyCart.png'
 
-const Cart = (location, getLocation) => {
+const Cart = ({ location, getLocation }) => {
   const navigation = useNavigate();
   const { cartItem,increase,decrease,deleteItem } = useCartData();
   const {user} = useUser();
@@ -97,7 +97,7 @@ const Cart = (location, getLocation) => {
                     <label htmlFor="">State</label>
                     <input
                       type="text"
-                      vlue={location?.state}
+                      value={location?.state}
                       placeholder="Enter your state"
                       className="p-2 rounded-md bg-white w-full"
                       />
@@ -106,7 +106,7 @@ const Cart = (location, getLocation) => {
                     <label htmlFor="">Postcode</label>
                     <input
                       type="text"
-                      vlue={location?.postcode}
+                      value={location?.postcode}
                       placeholder="Enter your postcode"
                       className="p-2 rounded-md bg-white"
                       />
@@ -136,7 +136,7 @@ const Cart = (location, getLocation) => {
                 </button>
                 <div className="flex flex-col items-center justify-center gap-2 mt-3 w-full">
                   ========= OR ========
-                  <button onClick={()=>getLocation} className="bg-red-500 mt-3 text-white px-3 py-2 rounded-md cursor-pointer">
+                  <button onClick={getLocation} className="bg-red-500 mt-3 text-white px-3 py-2 rounded-md cursor-pointer">
                     Detect Location
                   </button>
                 </div>
