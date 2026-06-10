@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io"
 import { useNavigate, useParams } from "react-router-dom"
 import CategoryProductsShow from "../components/CategoryProductsShow";
-import loading from '../assets/loading.webm'
+import loading from '../assets/Loading.webm'
 import axios from "axios";
 
 const CategoryProducts = () => {
